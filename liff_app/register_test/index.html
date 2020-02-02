@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<title>ระบบลงทะเบียนผู้ใช้งาน</title>
+
+<script src="https://d.line-scdn.net/liff/1.0/sdk.js"></script>
+
+<script src="lib/jquery-3.3.1.min.js"></script>
+
+
+<title>
+  HR bot
+</title>
+    <link rel="icon" href="../../dashboard/StandAlone/assets/img/brand/favicon.png" type="image/png">
+     <!-- Fonts -->
+     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
+     <!-- Icons -->
+     <link rel="stylesheet" href="../../dashboard/StandAlone/assets/vendor/nucleo/css/nucleo.css" type="text/css">
+     <link rel="stylesheet" href="../../dashboard/StandAlone/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css" type="text/css">
+     <script src="../../dashboard/StandAlone/assets/vendor/jquery/dist/jquery.min.js"></script>
+     <!-- Page plugins -->
+     <!-- Argon CSS -->
+     <link rel="stylesheet" href="../../dashboard/StandAlone/assets/css/argon.css?v=1.1.0" type="text/css">
+
+<script>
+
+
+//init LIFF
+
+function initializeApp(data) {
+
+let urlParams = new URLSearchParams(window.location.search);
+
+$('#name').val(urlParams.toString());
+
+$('#userid').val(data.context.userId);
+
+// $('#statusMessage').val(data.context.statusMessage);
+
+liff.getProfile()
+.then(profile => {
+  const name = profile.displayName
+  const statusMessage = profile.statusMessage
+  const picdisplay= profile.pictureUrl
+
+
+
+  $('#displayName').val(profile.displayName);
+  $('#pictureUrl').val(profile.pictureUrl);
+
+  $('#statusMessage').val(profile.statusMessage);
+
+
+  //   var inputVal = document.getElementById("pictureUrl").value;
+  // document.getElementById("myImg").src = inputVal;
+
+
+  
+
+})
+
+
+
+}
+
+
+//ready
+
+$(function () {
+
+//init LIFF
+
+liff.init(function (data) {
+
+initializeApp(data);
+
+});
+
+
+//ButtonGetProfile
+
+$('#ButtonGetProfile').click(function () {
+
+liff.getProfile().then(
+
+profile=> {
+
+$('#displayName').val(profile.displayName);
+
+alert('done');
+
+}
+
+);
+
+});
+
+//ButtonSendMsg #QueryString
+
+$('#ButtonSendMsg').click(function () {
+
+liff.sendMessages([
+
+{
+
+type: 'text',
+
+// text: $(‘#userid’).val() + $(‘#QueryString’).val() + $(‘#msg’).val()
+ text: $('คุณเคยลงทะเบียนแล้ว').val()
+
+}
+
+])
+
+.then(() => {
+
+alert('done');
+
+})
+
+});
+
+
+
+});
+
+</script>
+
+</head>
+
+<body class="bg-default">
+  <div class="main-content">
+    <!-- Navbar -->
+    <nav class="navbar navbar-top navbar-horizontal navbar-expand-md navbar-dark">
+      <div class="container px-4">
+        <a class="navbar-brand" href="../index.html">
+        
+        </a>
+      
+        <div class="collapse navbar-collapse" id="navbar-collapse-main">
+          <!-- Collapse header -->
+          <div class="navbar-collapse-header d-md-none">
+            <div class="row">
+              <div class="col-6 collapse-brand">
+                <a href="../index.html">
+                  <img src="../../dashboard/StandAlone/assets/img/brand/blue.png">
+                </a>
+              </div>
+       
+          <!-- Navbar items -->
+     
+        </div>
+      </div>
+    </nav>
+    <!-- Header -->
+    <div class="header bg-gradient-primary py-7 py-lg-12">
+          
+
+
+                  
+    <div class="form-group">
+      <div class="card-body">
+        <div class ="row justify-content-center">
+          <div class="col-lg-12">
+              <div class="card-profile-image">
+                  <a href="#">
+                      <img src="../../dashboard/StandAlone/assets/img/brand/bot.png" class="rounded-circle">
+                      
+                  </a>
+
+              </div>
+            </div>
+          </div>
+          <br>  <br>  <br>  <br>  <br>  <br>  <br>
+          <div class="card">
+              <div class="card-body">
+                  <form  action="save.php" method="get" class="login-form">
+       
+                  <input type="text" placeholder="รหัสบัตรประชาชน" class="form-control"  name="citizenid" id="citizenid" required="required" />
+                 
+    
+      
+                  <input class="form-control" type="hidden" id="userid" name="userid" />
+                  <input class="form-control" type="hidden" id="pictureUrl" name="pictureUrl" />
+                 
+                <br>
+    
+                <div class="row">
+                    <div class="col-6">   </div>
+                    <div class="col-6"> <button  class="btn btn-success"  id="sendmessagebutton"  >สมัครสมาชิก</button></div>
+                  </div>
+               
+      
+                <br>
+           
+              </form> 
+              </div>
+            </div>
+         
+      
+     
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+</script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script>
+ var fullname = document.getElementById("citizenid");
+
+   fullname.oninvalid = function(e) {
+     e.target.setCustomValidity("");
+     if (!e.target.validity.valid) {
+       e.target.setCustomValidity("กรุณาใส่บัตรประชาชน");
+     }
+   }
+
+
+ </script>
+
+ 
+
+
+
+
+    <!--   Core   -->
+    <script src="../../dashboard/StandAlone/assets/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="../../dashboard/StandAlone/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <!--   Optional JS   -->
+    <script src="../../dashboard/StandAlone/assets/vendor/chart.js/dist/Chart.min.js"></script>
+    <script src="../../dashboard/StandAlone/assets/vendor/chart.js/dist/Chart.extension.js"></script>
+ 
+    
+    </body>
+</html>
+<!-- 
+
+<form  action="save.php" method="get" class="login-form">
+
+                  
+  <div class="form-group">
+    <div class="card-body">
+      
+            <input type="text" placeholder="รหัสบัตรประชาชน" class="form-control"  name="citizenid" id="citizenid" required="required" />
+            <input type="hidden" placeholder="รหัสพนักงาน" class="form-control"  name="empid" id="empid" required="required" />
+            <input type="text" placeholder="ชื่อ" class="form-control"  name="fname" id="fname" required="required" />
+            <input type="text" placeholder="นามสกุล" class="form-control"  name="lname" id="lname" required="required" />
+            <select id="department" name="department" class="form-control" aria-placeholder="แผนก">
+                <option selected="selected"> กรุณาเลือกแผนกที่ท่านสังกัด </option>
+              <option value="1">IT</option>
+              <option value="2">HR</option>
+              
+            </select>
+            <br>
+            <input type="text" placeholder="ฝ่าย" class="form-control"  name="section" id="section" required="required" />
+
+            <input class="form-control" type="hidden" id="userid" name="userid" />
+            <input class="form-control" type="hidden" id="pictureUrl" name="pictureUrl" />
+           
+          <br>
+
+
+
+          <button id="sendmessagebutton"  >สมัครสมาชิก</button>
+          <p class="message">หากมีปัญหาในการใช้งานกรุณาติดต่อเจ้าหน้าที่</p>
+        </form> -->
